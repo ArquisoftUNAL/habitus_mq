@@ -1,0 +1,93 @@
+{
+  "users": [
+    {
+      "name": "admin",
+      "password_hash": "admin_hash",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "salt": "admin_salt",
+      "tags": "administrator"
+    },
+    {
+      "name": "w_notifications",
+      "password_hash": "w_notifications_hash",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "salt": "w_notifications_salt",
+      "tags": ""
+    },
+    {
+      "name": "r_notifications",
+      "password_hash": "r_notifications_hash",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "salt": "r_notifications_salt",
+      "tags": ""
+    },
+    {
+      "name": "w_new_habit_data",
+      "password_hash": "w_new_habit_data_hash",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "salt": "w_new_habit_data_salt",
+      "tags": ""
+    },
+    {
+      "name": "r_new_habit_data",
+      "password_hash": "r_new_habit_data_hash",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "salt": "r_new_habit_data_salt",
+      "tags": ""
+    }
+  ],
+  "vhosts": [{ "name": "/" }],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "w_notifications",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^notifications_mq$",
+      "read": "^$"
+    },
+    {
+      "user": "r_notifications",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^$",
+      "read": "^notifications_mq$"
+    },
+    {
+      "user": "w_new_habit_data",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^new_habit_data_mq$",
+      "read": "^$"
+    },
+    {
+      "user": "r_new_habit_data",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^$",
+      "read": "^new_habit_data_mq$"
+    }
+  ],
+  "queues": [
+    {
+      "name": "notifications_mq",
+      "vhost": "/",
+      "durable": "true",
+      "auto_delete": "false",
+      "arguments": {}
+    },
+    {
+      "name": "new_habit_data_mq",
+      "vhost": "/",
+      "durable": "true",
+      "auto_delete": "false",
+      "arguments": {}
+    }
+  ]
+}
