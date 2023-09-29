@@ -15,7 +15,8 @@ RUN dos2unix update_definitions.sh
 RUN chmod +x update_definitions.sh
 RUN chown rabbitmq:rabbitmq rabbitmq.conf definitions.json
 
-EXPOSE 5672 15672
+EXPOSE 5672
+EXPOSE 15672
 
 CMD ["sh", "update_definitions.sh"]
 CMD ["rabbitmq-server"]
