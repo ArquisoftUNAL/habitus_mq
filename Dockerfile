@@ -18,5 +18,4 @@ RUN chown rabbitmq:rabbitmq rabbitmq.conf definitions.json
 EXPOSE 5672
 EXPOSE 15672
 
-CMD ["sh", "update_definitions.sh"]
-CMD ["rabbitmq-server"]
+CMD bash -c "sh update_definitions.sh && rabbitmq-server"

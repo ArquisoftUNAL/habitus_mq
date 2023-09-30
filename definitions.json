@@ -4,71 +4,70 @@
       "name": "admin",
       "password_hash": "admin_password_hash",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "salt": "admin_salt",
       "tags": "administrator"
     },
     {
       "name": "w_notifications",
       "password_hash": "w_notifications_password_hash",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "salt": "w_notifications_salt",
       "tags": ""
     },
     {
       "name": "r_notifications",
       "password_hash": "r_notifications_password_hash",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "salt": "r_notifications_salt",
       "tags": ""
     },
     {
       "name": "w_new_habit_data",
       "password_hash": "w_new_habit_data_password_hash",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "salt": "w_new_habit_data_salt",
       "tags": ""
     },
     {
       "name": "r_new_habit_data",
       "password_hash": "r_new_habit_data_password_hash",
       "hashing_algorithm": "rabbit_password_hashing_sha256",
-      "salt": "r_new_habit_data_salt",
       "tags": ""
     }
   ],
-  "vhosts": [{ "name": "/" }],
+  "vhosts": [
+    {
+      "name": "localhost"
+    }
+  ],
   "permissions": [
     {
       "user": "admin",
-      "vhost": "/",
+      "vhost": "localhost",
       "configure": ".*",
       "write": ".*",
       "read": ".*"
     },
     {
       "user": "w_notifications",
-      "vhost": "/",
+      "vhost": "localhost",
       "configure": "^$",
       "write": "^notifications_mq$",
       "read": "^$"
     },
     {
       "user": "r_notifications",
-      "vhost": "/",
+      "vhost": "localhost",
       "configure": "^$",
       "write": "^$",
       "read": "^notifications_mq$"
     },
     {
       "user": "w_new_habit_data",
-      "vhost": "/",
+      "vhost": "localhost",
       "configure": "^$",
       "write": "^new_habit_data_mq$",
       "read": "^$"
     },
     {
       "user": "r_new_habit_data",
-      "vhost": "/",
+      "vhost": "localhost",
       "configure": "^$",
       "write": "^$",
       "read": "^new_habit_data_mq$"
@@ -77,16 +76,16 @@
   "queues": [
     {
       "name": "notifications_mq",
-      "vhost": "/",
-      "durable": "true",
-      "auto_delete": "false",
+      "vhost": "localhost",
+      "durable": true,
+      "auto_delete": false,
       "arguments": {}
     },
     {
       "name": "new_habit_data_mq",
-      "vhost": "/",
-      "durable": "true",
-      "auto_delete": "false",
+      "vhost": "localhost",
+      "durable": true,
+      "auto_delete": false,
       "arguments": {}
     }
   ]
