@@ -33,60 +33,98 @@
   ],
   "vhosts": [
     {
-      "name": "localhost"
-    }
-  ],
-  "permissions": [
-    {
-      "user": "admin",
-      "vhost": "localhost",
-      "configure": ".*",
-      "write": ".*",
-      "read": ".*"
-    },
-    {
-      "user": "w_notifications",
-      "vhost": "localhost",
-      "configure": "^$",
-      "write": "^notifications_mq$",
-      "read": "^$"
-    },
-    {
-      "user": "r_notifications",
-      "vhost": "localhost",
-      "configure": "^$",
-      "write": "^$",
-      "read": "^notifications_mq$"
-    },
-    {
-      "user": "w_new_habit_data",
-      "vhost": "localhost",
-      "configure": "^$",
-      "write": "^new_habit_data_mq$",
-      "read": "^$"
-    },
-    {
-      "user": "r_new_habit_data",
-      "vhost": "localhost",
-      "configure": "^$",
-      "write": "^$",
-      "read": "^new_habit_data_mq$"
+      "name": "/"
     }
   ],
   "queues": [
     {
       "name": "notifications_mq",
-      "vhost": "localhost",
+      "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {}
     },
     {
       "name": "new_habit_data_mq",
-      "vhost": "localhost",
+      "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "notifications_ex",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "new_habit_data_ex",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "notifications_ex",
+      "vhost": "/",
+      "destination": "notifications_mq",
+      "destination_type": "queue",
+      "routing_key": "notifications_mq",
+      "arguments": {}
+    },
+    {
+      "source": "new_habit_data_ex",
+      "vhost": "/",
+      "destination": "new_habit_data_mq",
+      "destination_type": "queue",
+      "routing_key": "new_habit_data_mq",
+      "arguments": {}
+    }
+  ],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "w_notifications",
+      "vhost": "/",
+      "configure": "^notifications_ex$",
+      "write": "^notifications_mq|notifications_ex$",
+      "read": "^$"
+    },
+    {
+      "user": "r_notifications",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^$",
+      "read": "^notifications_mq$"
+    },
+    {
+      "user": "w_new_habit_data",
+      "vhost": "/",
+      "configure": "^new_habit_data_ex$",
+      "write": "^new_habit_data_mq|new_habit_data_ex$",
+      "read": "^$"
+    },
+    {
+      "user": "r_new_habit_data",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^$",
+      "read": "^new_habit_data_mq$"
     }
   ]
 }
